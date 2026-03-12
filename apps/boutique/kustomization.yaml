@@ -3,3 +3,13 @@ kind: Kustomization
 
 resources:
   - https://raw.githubusercontent.com/GoogleCloudPlatform/microservices-demo/v0.8.0/release/kubernetes-manifests.yaml
+
+patches:
+  - target:
+      version: v1
+      kind: Service
+      name: frontend-external
+    patch: |-
+      - op: replace
+        path: /spec/type
+        value: ClusterIP
