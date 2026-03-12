@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: online-boutique
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/JustinoBoggio/sre-bootcamp-gitops.git'
+    path: apps/boutique
+    targetRevision: HEAD
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: default # Namespace where the boutique app will be deployed
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
