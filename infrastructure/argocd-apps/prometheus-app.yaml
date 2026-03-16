@@ -16,7 +16,7 @@ spec:
             enabled: false
           # Prometheus accepts push connections
           extraFlags:
-            - web.enable-remote-receiver
+            - web.enable-remote-write-receiver
         alertmanager:
           enabled: false
         pushgateway:
