@@ -24,6 +24,10 @@ spec:
               url: http://loki:3100
               access: proxy
               isDefault: true
+            - name: Tempo
+              type: tempo
+              url: http://tempo:3100
+              access: proxy
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: observability
