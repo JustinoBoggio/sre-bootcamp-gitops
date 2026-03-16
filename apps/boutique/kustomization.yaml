@@ -23,3 +23,13 @@ patches:
         value:
           name: OTEL_EXPORTER_OTLP_ENDPOINT
           value: "http://otel-collector.observability.svc.cluster.local:4317"
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value:
+          name: COLLECTOR_SERVICE_ADDR
+          value: "otel-collector.observability.svc.cluster.local:4317"
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value:
+          name: ENABLE_TRACING
+          value: "1"
