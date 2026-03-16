@@ -33,3 +33,10 @@ patches:
         value:
           name: ENABLE_TRACING
           value: "1"
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value:
+          name: OTEL_SERVICE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.labels['app']
