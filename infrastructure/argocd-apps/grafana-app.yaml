@@ -25,6 +25,7 @@ spec:
             - name: Loki
               type: loki
               url: http://loki:3100
+              uid: loki-datasource
               access: proxy
               isDefault: true
               jsonData:
@@ -37,6 +38,11 @@ spec:
               type: tempo
               uid: tempo-datasource
               url: http://tempo:3100
+              access: proxy
+            - name: Prometheus
+              type: prometheus
+              uid: prometheus-datasource
+              url: http://prometheus-server:80
               access: proxy
   destination:
     server: 'https://kubernetes.default.svc'

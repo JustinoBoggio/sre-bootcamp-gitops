@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prometheus
+  namespace: argocd
+spec:
+  project: default
+  source:
+    chart: prometheus
+    repoURL: 'https://prometheus-community.github.io/helm-charts'
+    targetRevision: 25.17.0
+    helm:
+      values: |
+        server:
+          persistentVolume:
+            enabled: false
+          # Prometheus accepts push connections
+          extraFlags:
+            - web.enable-remote-receiver
+        alertmanager:
+          enabled: false
+        pushgateway:
+          enabled: false
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: observability
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
