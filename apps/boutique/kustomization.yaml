@@ -3,6 +3,7 @@ kind: Kustomization
 
 resources:
   - https://raw.githubusercontent.com/GoogleCloudPlatform/microservices-demo/v0.8.0/release/kubernetes-manifests.yaml
+  - otel-alias.yaml
 
 patches:
   - target:
