@@ -3,7 +3,7 @@ kind: Kustomization
 
 resources:
   - https://raw.githubusercontent.com/GoogleCloudPlatform/microservices-demo/v0.8.0/release/kubernetes-manifests.yaml
-  - otel-alias.yaml
+  #- otel-alias.yaml
 
 patches:
   - target:
@@ -16,6 +16,7 @@ patches:
         value: ClusterIP
   - target:
       kind: Deployment
+      name: "^(frontend|cartservice|checkoutservice|currencyservice|emailservice|paymentservice|productcatalogservice|recommendationservice|shippingservice|adservice|loadgenerator)$"
     patch: |-
       - op: add
         path: /spec/template/spec/containers/0/env/-
