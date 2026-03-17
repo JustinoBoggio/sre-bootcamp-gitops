@@ -44,6 +44,24 @@ spec:
               uid: prometheus-datasource
               url: http://prometheus-server:80
               access: proxy
+        dashboardProviders:
+          dashboardproviders.yaml:
+            apiVersion: 1
+            providers:
+            - name: 'default'
+              orgId: 1
+              folder: 'Infrastructure SRE'
+              type: file
+              disableDeletion: false
+              editable: true
+              options:
+                path: /var/lib/grafana/dashboards/default
+        dashboards:
+          default:
+            kubernetes-cluster:
+              gnetId: 315
+              revision: 3
+              datasource: Prometheus
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: observability
