@@ -63,3 +63,37 @@ patches:
           metadata:
             annotations:
               prometheus.io/scrape: "true"
+  - target:
+      version: v1
+      kind: Deployment
+      name: frontend
+    patch: |-
+      - op: replace
+        path: /apiVersion
+        value: argoproj.io/v1alpha1
+      - op: replace
+        path: /kind
+        value: Rollout
+      - op: replace
+        path: /spec/replicas
+        value: 5
+      - op: add
+        path: /spec/strategy
+        value:
+          canary:
+            steps:
+            - setWeight: 20
+            - pause: 
+                duration: 60s
+            - setWeight: 50
+            - pause: 
+                duration: 60s
+  - target:
+      kind: Deployment
+      name: frontend
+    patch: |-
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value:
+          name: NEW_VERSION
+          value: "v2.0.0"
