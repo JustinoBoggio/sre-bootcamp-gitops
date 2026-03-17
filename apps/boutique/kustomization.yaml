@@ -50,3 +50,16 @@ patches:
         value:
           name: OTEL_EXPORTER_OTLP_METRICS_ENDPOINT
           value: "http://otel-collector.observability.svc.cluster.local:4318/v1/metrics"
+  - target:
+      kind: Deployment
+      name: "^(frontend|cartservice|checkoutservice|currencyservice|emailservice|paymentservice|productcatalogservice|recommendationservice|shippingservice|adservice|loadgenerator)$"
+    patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: any
+      spec:
+        template:
+          metadata:
+            annotations:
+              prometheus.io/scrape: "true"
