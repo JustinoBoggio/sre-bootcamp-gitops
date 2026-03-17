@@ -96,4 +96,4 @@ patches:
         path: /spec/template/spec/containers/0/env/-
         value:
           name: NEW_VERSION
-          value: "v2.0.0"
+          value: "v3.0.0"
