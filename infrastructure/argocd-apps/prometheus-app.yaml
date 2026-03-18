@@ -18,7 +18,38 @@ spec:
           extraFlags:
             - web.enable-remote-write-receiver
         alertmanager:
-          enabled: false
+          enabled: true
+          extraSecretMounts:
+            - name: slack-webhook-vol
+              mountPath: /etc/secrets/slack
+              secretName: alertmanager-slack-webhook
+              readOnly: true
+          config:
+            route:
+              group_by: ['alertname', 'node']
+              group_wait: 10s
+              group_interval: 1m
+              receiver: 'slack-sre'
+            receivers:
+              - name: 'slack-sre'
+                slack_configs:
+                  # Read the Slack webhook URL from a Kubernetes secret
+                  - api_url_file: '/etc/secrets/slack/url'
+                    channel: '#sre-alerts'
+                    send_resolved: true
+                    title: '[{{ .Status | toUpper }}] {{ .GroupLabels.alertname }} ({{ .Alerts | len }} alerts)'
+                    text: >-
+                      {{ range .Alerts }}
+                        *Severity:* `{{ .Labels.severity }}`
+                        *Node:* {{ .Labels.node }}
+                        *Details:* {{ .Annotations.summary }}
+                      {{ end }}
+            inhibit_rules:
+              - source_matchers:
+                  - alertname="NodeDown"
+                target_matchers:
+                  - severity="critical"
+                equal: ['node']
         pushgateway:
           enabled: false
   destination:
