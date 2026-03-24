@@ -16,6 +16,8 @@ This platform uses **ArgoCD** as the GitOps controller to manage a local Kuberne
     * **T**empo (Distributed Tracing).
     * **P**rometheus & Alertmanager (Symptom-based alerting).
 
+![Technical Architecture: Gitops & SRE](./assets/architecture_diagram.png)
+
 ### 🔄 System Flow
 1. **Control Plane (GitOps):** ArgoCD monitors this repository and reconciles the cluster state. The `root-app` automatically bootstraps the entire environment, deploying both the microservices and the observability stack.
 2. **Data Plane (Telemetry):** The Online Boutique microservices generate telemetry. OpenTelemetry SDKs push Traces and Metrics to the OTel Collector Gateway, while Promtail scrapes stdout container Logs.
