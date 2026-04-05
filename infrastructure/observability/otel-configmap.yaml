@@ -22,6 +22,24 @@ data:
         limit_percentage: 80
         spike_limit_percentage: 25
 
+      tail_sampling:
+        decision_wait: 10s
+        num_traces: 10000
+        expected_new_traces_per_sec: 1000
+        policies:
+          - name: keep-errors
+            type: status_code
+            status_code:
+              status_codes: [ERROR]
+          - name: keep-slow-traces
+            type: latency
+            latency:
+              threshold_ms: 2000
+          - name: probabilistic-sampling
+            type: probabilistic
+            probabilistic:
+              sampling_percentage: 10
+
     exporters:
       debug:
         verbosity: detailed
@@ -42,7 +60,7 @@ data:
       pipelines:
         traces:
           receivers: [otlp]
-          processors: [memory_limiter, batch]
+          processors: [memory_limiter, tail_sampling, batch]
           exporters: [otlp/tempo]
         metrics:
           receivers: [otlp]
