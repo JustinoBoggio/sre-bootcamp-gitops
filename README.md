@@ -93,6 +93,6 @@ Use `kubectl port-forward` to access ArgoCD, Grafana, or the Argo Rollouts dashb
 
 **Justino Boggio**
 
-*Devops Engineer | Cloud Engineer | SRE | Information Systems Engineer*
+*DevSecOps Engineer | Cloud Engineer | SRE | Information Systems Engineer*
 
 [LinkedIn](https://www.linkedin.com/in/justino-boggio-75a932204) | [GitHub](https://github.com/JustinoBoggio)
